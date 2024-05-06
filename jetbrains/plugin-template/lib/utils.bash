@@ -75,9 +75,9 @@ install_version() {
 		test -x "${install_path}/${tool_cmd}" || fail "Expected ${install_path}/${tool_cmd} to be executable."
 
 		mkdir "${install_path}/${SHIMS_DIR_NAME}"
-		pushd "${install_path}/${SHIMS_DIR_NAME}" > /dev/null
+		pushd "${install_path}/${SHIMS_DIR_NAME}" >/dev/null
 		ln -s "../${tool_cmd}" "${TOOL_NAME}"
-		popd > /dev/null
+		popd >/dev/null
 
 		echo "${TOOL_NAME} ${version} installation was successful!"
 	) || (

@@ -9,71 +9,71 @@ plugin_dir=$(dirname "$(dirname "${current_script_path}")")
 source "${plugin_dir}/lib/utils.bash"
 
 print_help() {
-  echo "ASDF JetBrains plugin"
-  echo "USAGE"
-  echo "  asdf jetbrains list             # List jetbrains products"
-  echo "  asdf jetbrains add <product>    # Add ASDF plugin for JetBrains product"
-  echo "  asdf jetbrains remove <product> # Remove ASDF plugin for JetBrains product"
-  echo "EXAMPLE"
-  echo "  asdf jetbrains add idea         # Add ASDF plugin for JetBrains IDEA"
-  echo "  asdf list all idea              # List versions of JetBrains IDEA"
-  echo "  asdf idea install latest        # Install latest version of JetBrains IDEA"
-  echo "  asdf global idea latest         # Set global version of JetBrains IDEA"
-  echo "  idea                            # Run JetBrains IDEA"
+	echo "ASDF JetBrains plugin"
+	echo "USAGE"
+	echo "  asdf jetbrains list             # List jetbrains products"
+	echo "  asdf jetbrains add <product>    # Add ASDF plugin for JetBrains product"
+	echo "  asdf jetbrains remove <product> # Remove ASDF plugin for JetBrains product"
+	echo "EXAMPLE"
+	echo "  asdf jetbrains add idea         # Add ASDF plugin for JetBrains IDEA"
+	echo "  asdf list all idea              # List versions of JetBrains IDEA"
+	echo "  asdf idea install latest        # Install latest version of JetBrains IDEA"
+	echo "  asdf global idea latest         # Set global version of JetBrains IDEA"
+	echo "  idea                            # Run JetBrains IDEA"
 }
 
 print_products() {
-  echo "JetBrains products:"
-  echo "  idea     - IntelliJ IDEA Ultimate"
-  echo "  ideac    - IntelliJ IDEA Community Edition"
-  echo "  pycharm  - PyCharm Professional Edition"
-  echo "  pycharmc - PyCharm Community Edition"
-  echo "  clion    - CLion"
+	echo "JetBrains products:"
+	echo "  idea     - IntelliJ IDEA Ultimate"
+	echo "  ideac    - IntelliJ IDEA Community Edition"
+	echo "  pycharm  - PyCharm Professional Edition"
+	echo "  pycharmc - PyCharm Community Edition"
+	echo "  clion    - CLion"
 }
 
 add_product() {
-		local name
-		name="$1"
+	local name
+	name="$1"
 
-		case "${name}" in
-		  "idea")
-		    add_jetbrains_product "idea" "IIU" "bin/idea.sh --version"
-		    ;;
-		  "ideac")
-		    add_jetbrains_product "ideac" "IIC" "bin/idea.sh --version"
-		    ;;
-		  "pycharm")
-		    add_jetbrains_product "pycharm" "PCP" "bin/pycharm.sh --version"
-		    ;;
-		  "pycharmc")
-		    add_jetbrains_product "pycharmc" "PCC" "bin/pycharm.sh --version"
-		    ;;
-		  "clion")
-		    add_jetbrains_product "clion" "CL" "bin/clion.sh --version"
-		    ;;
-		  *)
-		    fail "Unknown product name: ${name}"
-		    ;;
-		esac
+	case "${name}" in
+	"idea")
+		add_jetbrains_product "idea" "IIU" "bin/idea.sh --version"
+		;;
+	"ideac")
+		add_jetbrains_product "ideac" "IIC" "bin/idea.sh --version"
+		;;
+	"pycharm")
+		add_jetbrains_product "pycharm" "PCP" "bin/pycharm.sh --version"
+		;;
+	"pycharmc")
+		add_jetbrains_product "pycharmc" "PCC" "bin/pycharm.sh --version"
+		;;
+	"clion")
+		add_jetbrains_product "clion" "CL" "bin/clion.sh --version"
+		;;
+	*)
+		fail "Unknown product name: ${name}"
+		;;
+	esac
 }
 
 add_jetbrains_product() {
-  local name code tool
+	local name code tool
 
-  name=$1
-  code=$2
-  tool=$3
+	name=$1
+	code=$2
+	tool=$3
 
-  local product_plugin_dir
-  product_plugin_dir="${plugin_dir}/../${name}"
+	local product_plugin_dir
+	product_plugin_dir="${plugin_dir}/../${name}"
 
-  if [ -d "${product_plugin_dir}" ]; then
-    fail "Product ${name} already installed"
-  fi
+	if [ -d "${product_plugin_dir}" ]; then
+		fail "Product ${name} already installed"
+	fi
 
-  cp -r "${plugin_dir}/jetbrains/plugin-template/." "${product_plugin_dir}"
+	cp -r "${plugin_dir}/jetbrains/plugin-template/." "${product_plugin_dir}"
 
-	cat > "${product_plugin_dir}/lib/env.bash" << EOF
+	cat >"${product_plugin_dir}/lib/env.bash" <<EOF
 #!/usr/bin/env bash
 
 TOOL_NAME="${name}"
@@ -84,41 +84,42 @@ EOF
 }
 
 remove_product() {
-  local name
+	local name
 
-  name=$1
+	name=$1
 
-  local product_plugin_dir
-  product_plugin_dir="${plugin_dir}/../${name}"
+	local product_plugin_dir
+	product_plugin_dir="${plugin_dir}/../${name}"
 
-  if [ ! -d "${product_plugin_dir}" ]; then
-    fail "Product ${name} not installed"
-  fi
+	if [ ! -d "${product_plugin_dir}" ]; then
+		fail "Product ${name} not installed"
+	fi
 
-  rm -rf "${product_plugin_dir}"
+	rm -rf "${product_plugin_dir}"
 }
 
 args=($1)
 command=${args[0]}
 
 case "${command}" in
-  "" | "--help" | "-h" | "help")
-    print_help
-    print_products
-    exit 0
-    ;;
-  "list")
-    print_products ${args[1]}
-    exit 0
-    ;;
-  "add")
-    add_product ${args[1]}
-    exit 0
-    ;;
-  "remove")
-    remove_product ${args[1]}
-    exit 0
-    ;;
-  *)
-		fail "Unknown command: ${command}"
+"" | "--help" | "-h" | "help")
+	print_help
+	print_products
+	exit 0
+	;;
+"list")
+	print_products ${args[1]}
+	exit 0
+	;;
+"add")
+	add_product ${args[1]}
+	exit 0
+	;;
+"remove")
+	remove_product ${args[1]}
+	exit 0
+	;;
+*)
+	fail "Unknown command: ${command}"
+	;;
 esac
