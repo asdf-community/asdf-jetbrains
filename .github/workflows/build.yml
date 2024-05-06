@@ -18,5 +18,6 @@ jobs:
     steps:
       - name: asdf_install
         uses: asdf-vm/actions/setup@v3
-      - name: asdf_plugin_add
-        uses: asdf-vm/actions/plugins-add@v3
+# todo
+#      - name: asdf_plugin_add
+#        uses: asdf-vm/actions/plugins-add@v3
