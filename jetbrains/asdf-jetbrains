@@ -98,7 +98,7 @@ remove_product() {
 	rm -rf "${product_plugin_dir}"
 }
 
-args=($1)
+args=(${1-})
 command=${args[0]}
 
 case "${command}" in
