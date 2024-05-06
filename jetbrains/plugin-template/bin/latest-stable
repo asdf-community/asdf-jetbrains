@@ -8,5 +8,4 @@ plugin_dir=$(dirname "$(dirname "${current_script_path}")")
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
-# This plugin does not install anything but other plugins
-echo "latest"
+list_all_versions | sort_versions | tail -n1 | xargs echo

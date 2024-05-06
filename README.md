@@ -15,10 +15,8 @@
 
 # Dependencies
 
-**TODO: adapt this section**
-
 - `bash`, `curl`, `tar`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
+- `jq` - commandline JSON processor
 
 # Install
 
@@ -33,17 +31,8 @@ asdf plugin add jetbrains https://github.com/mbutov/asdf-jetbrains.git
 jetbrains:
 
 ```shell
-# Show all installable versions
-asdf list-all jetbrains
-
-# Install specific version
-asdf install jetbrains latest
-
-# Set a version globally (on your ~/.tool-versions file)
-asdf global jetbrains latest
-
-# Now jetbrains commands are available
-asdf-jetbrains --help
+# Show help
+asdf jetbrains
 ```
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to

@@ -1,0 +1,73 @@
+AC - AppCode
+CL - CLion
+CLN - CLion Nova
+CWML - Code With Me Lobby
+CWMR - Code With Me Relay
+DC - dotCover
+DCCLT - dotCover Command Line Tools
+DG - DataGrip
+DL - Datalore
+DLE - Datalore Enterprise
+DM - dotMemory
+DMCLP - dotMemory Command Line Profiler
+DMU - dotMemory Unit
+DP - dotTrace
+DPCLT - dotTrace Command Line Tools
+DPK - dotPeek
+DPPS - dotTrace Profiling SDK
+DS - DataSpell
+EHS - ETW Host Service
+FL - Fleet
+FLIJ - Fleet Backend
+FLL - Fleet Launcher
+FLS - Floating License Server
+GO - GoLand
+GW - Gateway
+HB - Hub
+HCC - HTTP Client CLI
+IDES - IDE Services
+IIC - IntelliJ IDEA Community Edition
+IIE - IntelliJ IDEA Edu
+IIU - IntelliJ IDEA Ultimate
+JCD - JetBrains Clients Downloader
+KT - Kotlin
+MF - Mono Font
+MPS - MPS
+MPSIIP - MPS IntelliJ IDEA plugin
+PCC - PyCharm Community Edition
+PCE - PyCharm Edu
+PCP - PyCharm Professional Edition
+PS - PhpStorm
+QA - Aqua
+QDANDC - Qodana Community for Android
+QDCLD - Qodana Cloud
+QDGO - Qodana for Go
+QDJS - Qodana for JS
+QDJVM - Qodana for JVM
+QDJVMC - Qodana Community for JVM
+QDNET - Qodana for .NET
+QDPHP - Qodana for PHP
+QDPY - Qodana for Python
+QDPYC - Qodana Community for Python
+RC - ReSharper C++
+RD - Rider
+RDCPPP - Rider for Unreal Engine
+RFU - RiderFlow for Unity
+RM - RubyMine
+RR - RustRover
+RRD - Rider Remote Debugger
+RS - ReSharper
+RSCHB - ReSharper Checked builds
+RSCLT - ReSharper Command Line Tools
+RSU - ReSharper Tools
+SP - Space Cloud
+SPA - Space Desktop
+SPP - Space On-Premises
+TBA - Toolbox App
+TC - TeamCity
+TCC - TeamCity Cloud
+US - Upsource
+WRS - Writerside
+WS - WebStorm
+YTD - YouTrack
+YTWE - Youtrack Workflow Editor

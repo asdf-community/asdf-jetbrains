@@ -8,5 +8,5 @@ plugin_dir=$(dirname "$(dirname "${current_script_path}")")
 # shellcheck source=./lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
-# This plugin does not install anything but other plugins
-echo "latest"
+jetbrains_command=${ASDF_DIR}/lib/commands/command-jetbrains.bash
+rm "${jetbrains_command}"
