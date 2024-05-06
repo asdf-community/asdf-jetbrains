@@ -98,7 +98,7 @@ remove_product() {
 	rm -rf "${product_plugin_dir}"
 }
 
-args=(${1-})
+args=("$1")
 command=${args[0]}
 
 case "${command}" in
@@ -108,15 +108,15 @@ case "${command}" in
 	exit 0
 	;;
 "list")
-	print_products ${args[1]}
+	print_products
 	exit 0
 	;;
 "add")
-	add_product ${args[1]}
+	add_product "${args[1]-}"
 	exit 0
 	;;
 "remove")
-	remove_product ${args[1]}
+	remove_product "${args[1]-}"
 	exit 0
 	;;
 *)
