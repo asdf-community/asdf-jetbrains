@@ -16,5 +16,7 @@ jobs:
           - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v3
       - name: asdf_plugin_add
         uses: asdf-vm/actions/plugins-add@v3
