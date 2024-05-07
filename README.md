@@ -45,11 +45,21 @@ EXAMPLE
   asdf global idea latest         # Set global version of JetBrains IDEA
   idea                            # Run JetBrains IDEA
 JetBrains products:
-  idea     - IntelliJ IDEA Ultimate
-  ideac    - IntelliJ IDEA Community Edition
-  pycharm  - PyCharm Professional Edition
-  pycharmc - PyCharm Community Edition
-  clion    - CLion
+  clion      - CLion
+  datagrip   - DataGrip
+  dataspell  - DataSpell
+  gateway    - Gateway
+  goland     - GoLand
+  idea       - IntelliJ IDEA Ultimate
+  ideac      - IntelliJ IDEA Community Edition
+  mps        - MPS
+  phpstorm   - PhpStorm
+  pycharm    - PyCharm Professional Edition
+  pycharmc   - PyCharm Community Edition
+  rider      - Rider
+  rideru     - Rider for Unreal Engine
+  rubymine   - RubyMine
+  webstorm   - WebStorm
 ```
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
