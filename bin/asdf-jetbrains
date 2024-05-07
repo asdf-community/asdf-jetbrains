@@ -52,7 +52,7 @@ add_product() {
 		add_jetbrains_product "clion" "CL" "bin/clion.sh --version"
 		;;
 	*)
-		fail "Unknown product name: ${name}"
+		fail "Unknown product name: '${name}'"
 		;;
 	esac
 }
@@ -68,7 +68,7 @@ add_jetbrains_product() {
 	product_plugin_dir="${plugin_dir}/../${name}"
 
 	if [ -d "${product_plugin_dir}" ]; then
-		fail "Product ${name} already installed"
+		fail "Product '${name}' already installed"
 	fi
 
 	cp -r "${plugin_dir}/jetbrains/plugin-template/." "${product_plugin_dir}"
@@ -92,7 +92,7 @@ remove_product() {
 	product_plugin_dir="${plugin_dir}/../${name}"
 
 	if [ ! -d "${product_plugin_dir}" ]; then
-		fail "Product ${name} not installed"
+		fail "Product '${name}' not installed"
 	fi
 
 	rm -rf "${product_plugin_dir}"
@@ -120,6 +120,6 @@ case "${command}" in
 	exit 0
 	;;
 *)
-	fail "Unknown command: ${command}"
+	fail "Unknown command: '${command}'"
 	;;
 esac
