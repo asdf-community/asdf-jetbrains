@@ -36,7 +36,7 @@ sort_versions() {
 }
 
 list_all_versions() {
-	curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}&release.type=release" |
+	curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}" |
 		jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.downloads!={}) | .version' |
 		grep "^20"
 }
@@ -49,7 +49,7 @@ download_release() {
 	platform=$(platform)
 
 	url=$(
-		curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}&release.type=release" |
+		curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}" |
 			jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.version=="'${version}'") | .downloads.'${platform}'.link'
 	)
 
