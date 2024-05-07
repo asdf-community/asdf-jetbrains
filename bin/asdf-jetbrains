@@ -98,7 +98,12 @@ remove_product() {
 	rm -rf "${product_plugin_dir}"
 }
 
-args=("$1")
+if [ "$*" == "" ]; then
+	args=("" "")
+else
+	args=($1)
+fi
+
 command=${args[0]}
 
 case "${command}" in
