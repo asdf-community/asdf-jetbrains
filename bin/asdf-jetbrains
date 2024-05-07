@@ -24,9 +24,7 @@ print_help() {
 
 print_products() {
 	echo "JetBrains products:"
-	echo "  aqua       - Aqua"
 	echo "  clion      - CLion"
-	echo "  clionn     - CLion Nova"
 	echo "  datagrip   - DataGrip"
 	echo "  dataspell  - DataSpell"
 	echo "  gateway    - Gateway"
@@ -40,9 +38,7 @@ print_products() {
 	echo "  rider      - Rider"
 	echo "  rideru     - Rider for Unreal Engine"
 	echo "  rubymine   - RubyMine"
-	echo "  rustrover  - RustRover"
 	echo "  webstorm   - WebStorm"
-	echo "  writerside - Writerside"
 }
 
 add_product() {
