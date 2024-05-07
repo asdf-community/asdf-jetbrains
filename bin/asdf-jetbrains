@@ -17,7 +17,7 @@ print_help() {
 	echo "EXAMPLE"
 	echo "  asdf jetbrains add idea         # Add ASDF plugin for JetBrains IDEA"
 	echo "  asdf list all idea              # List versions of JetBrains IDEA"
-	echo "  asdf idea install latest        # Install latest version of JetBrains IDEA"
+	echo "  asdf install idea latest        # Install latest version of JetBrains IDEA"
 	echo "  asdf global idea latest         # Set global version of JetBrains IDEA"
 	echo "  idea                            # Run JetBrains IDEA"
 }
