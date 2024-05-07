@@ -41,7 +41,7 @@ USAGE
 EXAMPLE
   asdf jetbrains add idea         # Add ASDF plugin for JetBrains IDEA
   asdf list all idea              # List versions of JetBrains IDEA
-  asdf idea install latest        # Install latest version of JetBrains IDEA
+  asdf install idea latest        # Install latest version of JetBrains IDEA
   asdf global idea latest         # Set global version of JetBrains IDEA
   idea                            # Run JetBrains IDEA
 JetBrains products:
