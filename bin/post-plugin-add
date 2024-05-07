@@ -13,5 +13,5 @@ jetbrains_command=${ASDF_DIR}/lib/commands/command-jetbrains.bash
 cat >"${jetbrains_command}" <<EOF
 # -*- sh -*-
 
-"${plugin_dir}/jetbrains/asdf-jetbrains" "\$*"
+"${plugin_dir}/bin/asdf-jetbrains" "\$*"
 EOF
