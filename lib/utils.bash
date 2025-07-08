@@ -44,6 +44,8 @@ list_all_versions() {
 }
 
 download_release() {
+  set -x
+
 	local version filename platform url
 	version="$1"
 	filename="$2"
@@ -57,6 +59,8 @@ download_release() {
 
 	echo "* Downloading ${TOOL_NAME} release ${version} from ${url}..."
 	curl "${curl_opts[@]}" -o "${filename}" -C - "${url}" || fail "Could not download ${url}"
+
+	set +x
 }
 
 install_version() {
