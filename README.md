@@ -19,47 +19,45 @@
 ## Plugin:
 
 ```shell
-asdf plugin add jetbrains
+asdf plugin add <jetbrains product>
 # or
-asdf plugin add jetbrains https://github.com/asdf-community/asdf-jetbrains.git
+asdf plugin add <jetbrains product> https://github.com/asdf-community/asdf-jetbrains.git
 ```
+JetBrains products:
 
-## jetbrains:
+* clion      - CLion
+* datagrip   - DataGrip
+* dataspell  - DataSpell
+* gateway    - Gateway
+* goland     - GoLand
+* idea       - IntelliJ IDEA Ultimate
+* ideac      - IntelliJ IDEA Community Edition
+* mps        - MPS
+* phpstorm   - PhpStorm
+* pycharm    - PyCharm Professional Edition
+* pycharmc   - PyCharm Community Edition
+* rider      - Rider
+* rideru     - Rider for Unreal Engine
+* rubymine   - RubyMine
+* webstorm   - WebStorm
+
+Example for JetBrains IDEA Community Edition:
 
 ```shell
-# Show help
-asdf jetbrains
-```
+# Install plugin for JetBrains IDEA Community Edition
+asdf plugin add ideac https://github.com/asdf-community/asdf-jetbrains.git
 
-Output:
-```text
-ASDF JetBrains plugin
-USAGE
-  asdf jetbrains list             # List jetbrains products
-  asdf jetbrains add <product>    # Add ASDF plugin for JetBrains product
-  asdf jetbrains remove <product> # Remove ASDF plugin for JetBrains product
-EXAMPLE
-  asdf jetbrains add idea         # Add ASDF plugin for JetBrains IDEA
-  asdf list all idea              # List versions of JetBrains IDEA
-  asdf install idea latest        # Install latest version of JetBrains IDEA
-  asdf global idea latest         # Set global version of JetBrains IDEA
-  idea                            # Run JetBrains IDEA
-JetBrains products:
-  clion      - CLion
-  datagrip   - DataGrip
-  dataspell  - DataSpell
-  gateway    - Gateway
-  goland     - GoLand
-  idea       - IntelliJ IDEA Ultimate
-  ideac      - IntelliJ IDEA Community Edition
-  mps        - MPS
-  phpstorm   - PhpStorm
-  pycharm    - PyCharm Professional Edition
-  pycharmc   - PyCharm Community Edition
-  rider      - Rider
-  rideru     - Rider for Unreal Engine
-  rubymine   - RubyMine
-  webstorm   - WebStorm
+# Show all installable versions of JetBrains IDEA Community Edition
+asdf list-all ideac
+
+# Install specific version
+asdf install ideac latest
+
+# Set a version globally (on your ~/.tool-versions file)
+asdf global ideac latest
+
+# Now ideac command is available
+ideac
 ```
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
