@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-current_script_path=${BASH_SOURCE[0]}
+current_script_path=$(readlink -f "${BASH_SOURCE[0]}")
 current_script_dir=$(dirname "${current_script_path}")
 plugin_dir=$(dirname "${current_script_dir}")
 plugin_name=$(basename "${plugin_dir}")
