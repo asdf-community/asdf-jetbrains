@@ -2,11 +2,11 @@
 
 ### this file will be replaced by post-plugin-add, non-replaced file will cause an error
 
-# TOOL_NAME="..."
-# TOOL_TEST="..."
-# JETBRAINS_PRODUCT_CODE="..."
+# export TOOL_NAME="..."
+# export TOOL_TEST="..."
+# export JETBRAINS_PRODUCT_CODE="..."
 
-current_script_path=${BASH_SOURCE[0]}
+current_script_path=$(readlink -f "${BASH_SOURCE[0]}")
 current_script_dir=$(dirname "${current_script_path}")
 plugin_dir=$(dirname "${current_script_dir}")
 plugin_name=$(basename "${plugin_dir}")
