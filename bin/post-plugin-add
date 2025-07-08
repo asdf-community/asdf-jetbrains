@@ -12,6 +12,11 @@ configure_jetbrains_product() {
 	local name
 	name="$1"
 
+  # in case of "asdf plugin test ..." remove prefix "asdf-test-"
+  if [[ "$name" == asdf-test-* ]]; then
+    name="${name#asdf-test-}"
+  fi
+
 	case "${name}" in
 	"aqua")
 		add_jetbrains_product "aqua" "QA" "bin/aqua.sh --version"
