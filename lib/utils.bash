@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-set -x
 
 current_script_path=$(readlink -f "${BASH_SOURCE[0]}")
 current_script_dir=$(dirname "${current_script_path}")
