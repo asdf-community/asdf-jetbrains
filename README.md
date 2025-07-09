@@ -48,13 +48,13 @@ Example for JetBrains IDEA Community Edition:
 asdf plugin add ideac https://github.com/asdf-community/asdf-jetbrains.git
 
 # Show all installable versions of JetBrains IDEA Community Edition
-asdf list-all ideac
+asdf list all ideac
 
 # Install specific version
 asdf install ideac latest
 
-# Set a version globally (on your ~/.tool-versions file)
-asdf global ideac latest
+# Set a version globally (in your ~/.tool-versions file)
+asdf set -u ideac latest
 
 # Now 'ideac' command is available
 ideac
