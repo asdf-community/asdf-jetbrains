@@ -19,8 +19,6 @@
 ## Plugin:
 
 ```shell
-asdf plugin add <jetbrains product>
-# or
 asdf plugin add <jetbrains product> https://github.com/asdf-community/asdf-jetbrains.git
 ```
 JetBrains products:
