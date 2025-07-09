@@ -48,7 +48,7 @@ list_all_versions() {
 	platform=$(platform)
 
 	curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}&release.type=release" |
-		jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.downloads.'${platform}'!={}) | .version' |
+		jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.downloads!=null and .downloads.'${platform}'!=null and .downloads.'${platform}'!={}) | .version' |
 		grep "^20" |
 		sort_versions |
 		reverse
