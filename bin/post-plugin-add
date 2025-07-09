@@ -12,9 +12,14 @@ configure_jetbrains_product() {
 	local name
 	name="$1"
 
-	# in case of "asdf plugin test ..." remove prefix "asdf-test-"
+	# in case of "asdf plugin test ideac ..." the name will be "asdf-test-ideac", so, remove the prefix
 	if [[ "$name" == asdf-test-* ]]; then
 		name="${name#asdf-test-}"
+	fi
+
+	# allow both "ideac" and "jetbrains-ideac" as name
+	if [[ "$name" == jetbrains-* ]]; then
+		name="${name#jetbrains-}"
 	fi
 
 	case "${name}" in

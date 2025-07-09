@@ -41,6 +41,8 @@ JetBrains products:
 * rubymine   - RubyMine
 * webstorm   - WebStorm
 
+The product name can also be prefixed with `jetbrains-`, e.g. `jetbrains-ideac`, `jetbrains-goland`, etc.
+
 Example for JetBrains IDEA Community Edition:
 
 ```shell
@@ -56,7 +58,7 @@ asdf install ideac latest
 # Set a version globally (on your ~/.tool-versions file)
 asdf global ideac latest
 
-# Now ideac command is available
+# Now 'ideac' command is available
 ideac
 ```
 
