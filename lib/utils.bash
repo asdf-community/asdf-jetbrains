@@ -38,14 +38,16 @@ sort_versions() {
 }
 
 list_all_versions() {
+	local platform
+
+	platform=$(platform)
+
 	curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}&release.type=release" |
-		jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.downloads!={}) | .version' |
+		jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.downloads.'${platform}'!={}) | .version' |
 		grep "^20"
 }
 
 download_release() {
-  set -x
-
 	local version filename platform url
 	version="$1"
 	filename="$2"
@@ -59,8 +61,6 @@ download_release() {
 
 	echo "* Downloading ${TOOL_NAME} release ${version} from ${url}..."
 	curl "${curl_opts[@]}" -o "${filename}" -C - "${url}" || fail "Could not download ${url}"
-
-	set +x
 }
 
 install_version() {
