@@ -38,7 +38,7 @@ sort_versions() {
 }
 
 reverse() {
-  tac | paste -sd ' ' -
+  tac
 }
 
 list_all_versions() {
