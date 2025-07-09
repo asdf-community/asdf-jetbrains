@@ -37,6 +37,10 @@ sort_versions() {
 		LC_ALL=C sort -t. -k 1,1 -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
 }
 
+reverse() {
+  tac | paste -sd ' ' -
+}
+
 list_all_versions() {
 	local platform
 
@@ -44,7 +48,9 @@ list_all_versions() {
 
 	curl "${curl_opts[@]}" "https://data.services.jetbrains.com/products?code=${JETBRAINS_PRODUCT_CODE}&release.type=release" |
 		jq -r '.[] | select(.code=="'${JETBRAINS_PRODUCT_CODE}'") | .releases | .[] | select(.downloads.'${platform}'!={}) | .version' |
-		grep "^20"
+		grep "^20" |
+		sort_versions |
+		reverse
 }
 
 download_release() {
