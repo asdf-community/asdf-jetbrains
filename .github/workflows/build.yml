@@ -8,7 +8,7 @@ on:
 
 jobs:
   plugin_test:
-    name: asdf plugin test
+    name: install and run
     strategy:
       fail-fast: false
       matrix:
@@ -18,9 +18,17 @@ jobs:
           - macos-15-intel
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v7
+      - uses: asdf-vm/actions/setup@v4
+      # Not asdf-vm/actions/plugin-test: "asdf plugin test" of asdf 0.16 and later does not run the test command.
       # Gateway is the smallest product, the others are 1-3 GB.
-      - name: asdf_plugin_test
-        uses: asdf-vm/actions/plugin-test@v4
-        with:
-          plugin: gateway
-          command: gateway --version
+      - name: Install and run Gateway
+        run: |
+          plugins="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins"
+          mkdir -p "$plugins"
+          cp -R "$GITHUB_WORKSPACE" "$plugins/gateway"
+          version=$(asdf latest gateway)
+          asdf install gateway "$version"
+          asdf set gateway "$version"
+          gateway --version | tee output.txt
+          grep -q "Gateway $version" output.txt
