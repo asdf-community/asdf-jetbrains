@@ -1,67 +1,90 @@
 # asdf-jetbrains [![Build](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/build.yml) [![Lint](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/lint.yml)
 
-[jetbrains](https://github.com/asdf-community/asdf-jetbrains) plugin for the [asdf version manager](https://asdf-vm.com).
+[JetBrains IDEs](https://www.jetbrains.com/ides/) plugin for the [asdf version manager](https://asdf-vm.com), also works with [mise](https://mise.jdx.dev).
 
 # Contents
 
 - [Dependencies](#dependencies)
 - [Install](#install)
+- [Products](#products)
+- [Upgrading from earlier versions](#upgrading-from-earlier-versions)
 - [Contributing](#contributing)
 - [License](#license)
 
 # Dependencies
 
-- `bash`, `curl`, `tar`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
-- `jq` - commandline JSON processor
+- `bash`, `curl`, [`jq`](https://jqlang.org).
+- Linux (x86_64, ARM64): `tar`, `sha256sum`.
+- macOS (Intel, Apple silicon): `hdiutil`, `ditto`, `shasum`, all part of macOS.
 
 # Install
 
-## Plugin:
+The plugin name defines the JetBrains product, see [Products](#products).
+The same plugin can be added several times under different names.
 
 ```shell
-asdf plugin add <jetbrains product> https://github.com/asdf-community/asdf-jetbrains.git
+# Add the plugin for IntelliJ IDEA
+asdf plugin add idea https://github.com/asdf-community/asdf-jetbrains.git
+
+# Show all installable versions
+asdf list all idea
+
+# Install the latest version, or the latest 2025.2.x
+asdf install idea latest
+asdf install idea latest:2025.2
+
+# Set a version for the user (~/.tool-versions)
+asdf set -u idea latest
+
+# Now the 'idea' command is available
+idea .
 ```
-JetBrains products:
 
-* clion      - CLion
-* datagrip   - DataGrip
-* dataspell  - DataSpell
-* gateway    - Gateway
-* goland     - GoLand
-* idea       - IntelliJ IDEA Ultimate
-* ideac      - IntelliJ IDEA Community Edition
-* mps        - MPS
-* phpstorm   - PhpStorm
-* pycharm    - PyCharm Professional Edition
-* pycharmc   - PyCharm Community Edition
-* rider      - Rider
-* rideru     - Rider for Unreal Engine
-* rubymine   - RubyMine
-* webstorm   - WebStorm
-
-The product name can also be prefixed with `jetbrains-`, e.g. `jetbrains-ideac`, `jetbrains-goland`, etc.
-
-Example for JetBrains IDEA Community Edition:
+With mise:
 
 ```shell
-# Install plugin for JetBrains IDEA Community Edition
-asdf plugin add ideac https://github.com/asdf-community/asdf-jetbrains.git
-
-# Show all installable versions of JetBrains IDEA Community Edition
-asdf list all ideac
-
-# Install specific version
-asdf install ideac latest
-
-# Set a version globally (in your ~/.tool-versions file)
-asdf set -u ideac latest
-
-# Now 'ideac' command is available
-ideac
+mise plugins install idea https://github.com/asdf-community/asdf-jetbrains.git
+mise use -g idea@latest
 ```
 
-Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
+Downloads are verified with the SHA-256 checksum published by JetBrains.
+On macOS the application bundle from the `.dmg` is installed into the asdf directory, not into `/Applications`.
+
+Check [asdf](https://asdf-vm.com/guide/getting-started.html) documentation for more instructions on how to
 install & manage versions.
+
+# Products
+
+| Plugin name | Product                                                  |
+|-------------|----------------------------------------------------------|
+| `clion`     | CLion                                                    |
+| `datagrip`  | DataGrip                                                 |
+| `dataspell` | DataSpell                                                |
+| `gateway`   | Gateway                                                  |
+| `goland`    | GoLand                                                   |
+| `idea`      | IntelliJ IDEA                                            |
+| `ideac`     | IntelliJ IDEA Community Edition, discontinued after 2025.3 |
+| `mps`       | MPS                                                      |
+| `phpstorm`  | PhpStorm                                                 |
+| `pycharm`   | PyCharm                                                  |
+| `pycharmc`  | PyCharm Community Edition, discontinued after 2025.3     |
+| `rider`     | Rider                                                    |
+| `rubymine`  | RubyMine                                                 |
+| `rustrover` | RustRover                                                |
+| `webstorm`  | WebStorm                                                 |
+
+The name can also be prefixed with `jetbrains-`, e.g. `jetbrains-goland`; the command is `goland` anyway.
+
+The Community Editions have no releases after 2025.3, JetBrains merged them into IntelliJ IDEA and PyCharm:
+use `idea` and `pycharm` for newer versions.
+
+Only stable releases are listed, EAP builds are not.
+
+# Upgrading from earlier versions
+
+Before 1.1.0, `asdf plugin update` and `mise plugins update` made the plugin fail with `Unknown product name`.
+Updating to 1.1.0 or later fixes it, installed versions stay.
+If the plugin already fails, run the update once more; do not remove the plugin, removal deletes installed versions.
 
 # Contributing
 
