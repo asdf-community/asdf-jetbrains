@@ -2,12 +2,10 @@
 
 set -euo pipefail
 
-current_script_path=$(readlink -f "${BASH_SOURCE[0]}")
-current_script_dir=$(dirname "${current_script_path}")
-plugin_dir=$(dirname "${current_script_dir}")
-plugin_name=$(basename "${plugin_dir}")
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-# shellcheck source=./lib/utils.bash
+# shellcheck source=lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
 list_all_versions | sort_versions | xargs echo

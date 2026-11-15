@@ -2,106 +2,11 @@
 
 set -euo pipefail
 
-current_script_path=$(readlink -f "${BASH_SOURCE[0]}")
-current_script_dir=$(dirname "${current_script_path}")
-plugin_dir=$(dirname "${current_script_dir}")
-plugin_name=$(basename "${plugin_dir}")
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-configure_jetbrains_product() {
+# shellcheck source=lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
 
-	local name
-	name="$1"
-
-	# in case of "asdf plugin test ideac ..." the name will be "asdf-test-ideac", so, remove the prefix
-	if [[ "$name" == asdf-test-* ]]; then
-		name="${name#asdf-test-}"
-	fi
-
-	# allow both "ideac" and "jetbrains-ideac" as name
-	if [[ "$name" == jetbrains-* ]]; then
-		name="${name#jetbrains-}"
-	fi
-
-	case "${name}" in
-	"aqua")
-		add_jetbrains_product "aqua" "QA" "bin/aqua.sh --version"
-		;;
-	"clion")
-		add_jetbrains_product "clion" "CL" "bin/clion.sh --version"
-		;;
-	"clionn")
-		add_jetbrains_product "clionn" "CLN" "bin/clion.sh --version"
-		;;
-	"datagrip")
-		add_jetbrains_product "datagrip" "DG" "bin/datagrip.sh --version"
-		;;
-	"dataspell")
-		add_jetbrains_product "dataspell" "DS" "bin/dataspell.sh --version"
-		;;
-	"goland")
-		add_jetbrains_product "goland" "GO" "bin/goland.sh --version"
-		;;
-	"idea")
-		add_jetbrains_product "idea" "IIU" "bin/idea.sh --version"
-		;;
-	"ideac")
-		add_jetbrains_product "ideac" "IIC" "bin/idea.sh --version"
-		;;
-	"mps")
-		add_jetbrains_product "mps" "MPS" "bin/mps.sh --version"
-		;;
-	"gateway")
-		add_jetbrains_product "gateway" "GW" "bin/gateway.sh --version"
-		;;
-	"phpstorm")
-		add_jetbrains_product "phpstorm" "PS" "bin/phpstorm.sh --version"
-		;;
-	"pycharm")
-		add_jetbrains_product "pycharm" "PCP" "bin/pycharm.sh --version"
-		;;
-	"pycharmc")
-		add_jetbrains_product "pycharmc" "PCC" "bin/pycharm.sh --version"
-		;;
-	"rider")
-		add_jetbrains_product "rider" "RD" "bin/rider.sh --version"
-		;;
-	"rideru")
-		add_jetbrains_product "rideru" "RDCPPP" "bin/rider.sh --version"
-		;;
-	"rubymine")
-		add_jetbrains_product "rubymine" "RM" "bin/rubymine.sh --version"
-		;;
-	"rustrover")
-		add_jetbrains_product "rustrover" "RR" "bin/rustrover.sh --version"
-		;;
-	"webstorm")
-		add_jetbrains_product "webstorm" "WS" "bin/webstorm.sh --version"
-		;;
-	"writerside")
-		add_jetbrains_product "writerside" "WRS" "bin/writerside.sh --version"
-		;;
-	*)
-		source "${plugin_dir}/lib/env.bash"
-		;;
-	esac
-
-}
-
-add_jetbrains_product() {
-	local name code tool
-
-	name=$1
-	code=$2
-	tool=$3
-
-	cat >"${plugin_dir}/lib/env.bash" <<EOF
-#!/usr/bin/env bash
-
-export TOOL_NAME="${name}"
-export TOOL_TEST="${tool}"
-export JETBRAINS_PRODUCT_CODE="${code}"
-EOF
-
-}
-
-configure_jetbrains_product "${plugin_name}"
+# Sourcing utils.bash fails for an unknown or discontinued product name.
+echo "JetBrains product: $TOOL_NAME ($JETBRAINS_PRODUCT_CODE)"

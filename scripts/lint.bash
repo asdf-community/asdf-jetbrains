@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
-shellcheck --shell=bash --external-sources bin/* lib/* scripts/*
+# Both linters run, the script fails if any of them does.
+status=0
 
-shfmt --language-dialect bash --diff bin/* lib/* scripts/*
+shellcheck --shell=bash --external-sources bin/* lib/* scripts/* || status=1
+
+shfmt --language-dialect bash --diff bin/* lib/* scripts/* || status=1
+
+exit "$status"
