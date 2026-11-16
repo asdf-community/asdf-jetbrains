@@ -14,6 +14,13 @@ jobs:
       - uses: asdf-vm/actions/install@v4
       - run: scripts/lint.bash
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: asdf-vm/actions/install@v4
+      - run: bats tests
+
   actionlint:
     runs-on: ubuntu-latest
     steps:
