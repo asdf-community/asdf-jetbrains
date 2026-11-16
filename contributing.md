@@ -7,13 +7,22 @@ scripts/lint.bash
 scripts/format.bash
 ```
 
-Testing locally, the plugin name defines the product:
+Offline tests (bats, curl is replaced with release lists from `tests/fixtures`):
 
 ```shell
-asdf plugin test <plugin-name> <plugin-url> [--asdf-tool-version <version>] [--asdf-plugin-gitref <git-ref>] [test-command*]
-
-asdf plugin test gateway https://github.com/asdf-community/asdf-jetbrains.git "gateway --version"
+bats tests
 ```
+
+Testing the real installation, the plugin name defines the product:
+
+```shell
+mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins"
+cp -R . "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/gateway"
+asdf install gateway latest
+```
+
+`asdf plugin test` of asdf 0.16 and later does not run a test command, the build runs it itself,
+see `.github/workflows/build.yml`.
 
 A new product is a line in `PRODUCTS` in `lib/utils.bash` and a row in the README.
 Product codes are listed by `https://data.services.jetbrains.com/products?fields=code,name`.

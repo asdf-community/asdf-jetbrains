@@ -8,6 +8,7 @@
 - [Install](#install)
 - [Products](#products)
   - [Toolbox App](#toolbox-app)
+- [Configuration](#configuration)
 - [Upgrading from earlier versions](#upgrading-from-earlier-versions)
 - [Contributing](#contributing)
 - [License](#license)
@@ -97,6 +98,19 @@ Toolbox App runs from the asdf installation directory and keeps its data and the
 in `~/.local/share/JetBrains` on Linux.
 On the first start it adds an autostart entry pointing to the installed version: start the new version
 after `asdf install toolbox <version>`, before uninstalling the old one.
+
+# Configuration
+
+| Variable                       | Meaning                                                                                          |
+|--------------------------------|--------------------------------------------------------------------------------------------------|
+| `ASDF_JETBRAINS_SKIP_CHECKSUM` | Any non-empty value skips SHA-256 verification                                                   |
+| `ASDF_JETBRAINS_CACHE_TTL`     | Seconds to keep release lists in `${XDG_CACHE_HOME:-~/.cache}/asdf-jetbrains`, 3600 by default, `0` disables |
+
+Release lists are cached because asdf asks for them on every `asdf latest`, `asdf list all` and `asdf install`.
+A new release shows up within an hour.
+
+The downloaded files are moved into the installation, not copied, so `asdf install --keep-download`
+keeps an empty download directory.
 
 # Upgrading from earlier versions
 
