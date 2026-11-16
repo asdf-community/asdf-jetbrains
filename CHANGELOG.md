@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/asdf-community/asdf-jetbrains/compare/v1.3.0...v1.3.1) (2026-11-16)
+
+
+### Bug Fixes
+
+* explain how to add a product when the plugin is named jetbrains ([a97f2b3](https://github.com/asdf-community/asdf-jetbrains/commit/a97f2b3e510334c7db535dd93900e8dc51710aca))
+* suggest the plugin name without the jetbrains- prefix ([789a555](https://github.com/asdf-community/asdf-jetbrains/commit/789a55510d3f62b5726a22e3fe4999f635595128))
+
 ## [1.3.0](https://github.com/asdf-community/asdf-jetbrains/compare/v1.2.0...v1.3.0) (2026-11-16)
 
 
