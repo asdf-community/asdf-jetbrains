@@ -5,6 +5,10 @@ on:
     branches:
       - main
   pull_request:
+  # The releases API and archive layouts are not ours: a weekly run notices their changes.
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 jobs:
   plugin_test:
