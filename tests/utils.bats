@@ -66,6 +66,13 @@ load_plugin() {
 	[[ "$output" == *"rustrover"* ]]
 }
 
+@test "the registry name jetbrains explains how to add a product" {
+	run bash -c "source '$(plugin_path jetbrains)/lib/utils.bash'"
+	[ "$status" -eq 1 ]
+	[[ "$output" == *"asdf plugin add jetbrains-idea https://github.com/asdf-community/asdf-jetbrains.git"* ]]
+	[[ "$output" == *"rustrover"* ]]
+}
+
 @test "a discontinued product fails with an explanation" {
 	run bash -c "source '$(plugin_path aqua)/lib/utils.bash'"
 	[ "$status" -eq 1 ]

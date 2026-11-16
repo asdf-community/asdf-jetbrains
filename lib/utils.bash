@@ -67,6 +67,10 @@ configure_product() {
 	product=$(echo "$PRODUCTS" | awk -v name="$name" '$1 == name { print $2, $3, $4 }')
 
 	if [ -z "$product" ]; then
+		# "asdf plugin add jetbrains" from the plugin registry names no product.
+		if [ "$name" = jetbrains ]; then
+			fail "The plugin name defines the JetBrains product, \"jetbrains\" names none. Add the plugin per product, e.g.:\n\n  asdf plugin remove jetbrains\n  asdf plugin add jetbrains-idea https://github.com/asdf-community/asdf-jetbrains.git\n\nSupported names, with or without the prefix jetbrains-:\n\n$(supported_products)"
+		fi
 		if [[ " $DISCONTINUED_PRODUCTS " == *" $name "* ]]; then
 			fail "JetBrains product \"$name\" was discontinued and has no releases."
 		fi
