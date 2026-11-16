@@ -9,4 +9,4 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 source "${plugin_dir}/lib/utils.bash"
 
 # Sourcing utils.bash fails for an unknown or discontinued product name.
-echo "JetBrains product: $TOOL_NAME ($JETBRAINS_PRODUCT_CODE)"
+echo "JetBrains product: $TOOL_NAME ($JETBRAINS_PRODUCT_CODE), command $COMMAND"

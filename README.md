@@ -1,12 +1,13 @@
 # asdf-jetbrains [![Build](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/build.yml) [![Lint](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-community/asdf-jetbrains/actions/workflows/lint.yml)
 
-[JetBrains IDEs](https://www.jetbrains.com/ides/) plugin for the [asdf version manager](https://asdf-vm.com), also works with [mise](https://mise.jdx.dev).
+[JetBrains IDEs](https://www.jetbrains.com/ides/) and [Toolbox App](https://www.jetbrains.com/toolbox-app/) plugin for the [asdf version manager](https://asdf-vm.com), also works with [mise](https://mise.jdx.dev).
 
 # Contents
 
 - [Dependencies](#dependencies)
 - [Install](#install)
 - [Products](#products)
+  - [Toolbox App](#toolbox-app)
 - [Upgrading from earlier versions](#upgrading-from-earlier-versions)
 - [Contributing](#contributing)
 - [License](#license)
@@ -71,14 +72,31 @@ install & manage versions.
 | `rider`     | Rider                                                    |
 | `rubymine`  | RubyMine                                                 |
 | `rustrover` | RustRover                                                |
+| `toolbox`   | Toolbox App, see [Toolbox App](#toolbox-app)               |
 | `webstorm`  | WebStorm                                                 |
 
 The name can also be prefixed with `jetbrains-`, e.g. `jetbrains-goland`; the command is `goland` anyway.
+The command is the plugin name, except Toolbox App: `jetbrains-toolbox`.
 
 The Community Editions have no releases after 2025.3, JetBrains merged them into IntelliJ IDEA and PyCharm:
 use `idea` and `pycharm` for newer versions.
 
 Only stable releases are listed, EAP builds are not.
+IDE versions before 2016 used another numbering (IntelliJ IDEA 15.0.6) and are not listed.
+
+## Toolbox App
+
+```shell
+asdf plugin add toolbox https://github.com/asdf-community/asdf-jetbrains.git
+asdf install toolbox latest
+asdf set -u toolbox latest
+jetbrains-toolbox
+```
+
+Toolbox App runs from the asdf installation directory and keeps its data and the IDEs it installs
+in `~/.local/share/JetBrains` on Linux.
+On the first start it adds an autostart entry pointing to the installed version: start the new version
+after `asdf install toolbox <version>`, before uninstalling the old one.
 
 # Upgrading from earlier versions
 
