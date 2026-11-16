@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/asdf-community/asdf-jetbrains/compare/v1.2.0...v1.3.0) (2026-11-16)
+
+
+### Features
+
+* help.config and help.links with the product page ([4ffb0a2](https://github.com/asdf-community/asdf-jetbrains/commit/4ffb0a2c1dc94d55280dfd6bc0893d7534b2aee0))
+* release list cache and checksum setting, faster install ([0de4431](https://github.com/asdf-community/asdf-jetbrains/commit/0de4431ce37da6e78e96feba0afa1bca1dadeaad))
+
+
+### Bug Fixes
+
+* empty the download directory after a failed download ([0de4431](https://github.com/asdf-community/asdf-jetbrains/commit/0de4431ce37da6e78e96feba0afa1bca1dadeaad))
+
 ## [1.2.0](https://github.com/asdf-community/asdf-jetbrains/compare/v1.1.0...v1.2.0) (2026-11-16)
 
 
