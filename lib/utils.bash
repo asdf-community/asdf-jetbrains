@@ -17,30 +17,34 @@ fail() {
 	exit 1
 }
 
-# Plugin name, product code and launcher name ("idea" for bin/idea.sh and Contents/MacOS/idea).
+# Plugin name, product code, launcher ("idea" for bin/idea.sh and Contents/MacOS/idea), command on PATH.
 PRODUCTS="
-clion      CL  clion     CLion
-datagrip   DG  datagrip  DataGrip
-dataspell  DS  dataspell DataSpell
-gateway    GW  gateway   Gateway
-goland     GO  goland    GoLand
-idea       IIU idea      IntelliJ IDEA
-ideac      IIC idea      IntelliJ IDEA Community Edition, discontinued after 2025.3
-mps        MPS mps       MPS
-phpstorm   PS  phpstorm  PhpStorm
-pycharm    PCP pycharm   PyCharm
-pycharmc   PCC pycharm   PyCharm Community Edition, discontinued after 2025.3
-rider      RD  rider     Rider
-rubymine   RM  rubymine  RubyMine
-rustrover  RR  rustrover RustRover
-webstorm   WS  webstorm  WebStorm
+clion      CL  clion             clion             CLion
+datagrip   DG  datagrip          datagrip          DataGrip
+dataspell  DS  dataspell         dataspell         DataSpell
+gateway    GW  gateway           gateway           Gateway
+goland     GO  goland            goland            GoLand
+idea       IIU idea              idea              IntelliJ IDEA
+ideac      IIC idea              ideac             IntelliJ IDEA Community Edition, discontinued after 2025.3
+mps        MPS mps               mps               MPS
+phpstorm   PS  phpstorm          phpstorm          PhpStorm
+pycharm    PCP pycharm           pycharm           PyCharm
+pycharmc   PCC pycharm           pycharmc          PyCharm Community Edition, discontinued after 2025.3
+rider      RD  rider             rider             Rider
+rubymine   RM  rubymine          rubymine          RubyMine
+rustrover  RR  rustrover         rustrover         RustRover
+toolbox    TBA jetbrains-toolbox jetbrains-toolbox Toolbox App, command jetbrains-toolbox
+webstorm   WS  webstorm          webstorm          WebStorm
 "
+
+# IDE versions before 2016 had another numbering (IDEA 15.0.6) and are skipped, Toolbox App versions are 1.0 to 3.x.
+ALL_VERSIONS_PRODUCTS="toolbox"
 
 # Products the plugin listed before that never had a release.
 DISCONTINUED_PRODUCTS="aqua clionn rideru writerside"
 
 supported_products() {
-	echo "$PRODUCTS" | awk 'NF { name = $1; $1 = $2 = $3 = ""; sub(/^ +/, ""); printf "  %-10s %s\n", name, $0 }'
+	echo "$PRODUCTS" | awk 'NF { name = $1; $1 = $2 = $3 = $4 = ""; sub(/^ +/, ""); printf "  %-10s %s\n", name, $0 }'
 }
 
 # The product is defined by the plugin name: "asdf plugin add ideac <url>".
@@ -55,7 +59,7 @@ product_name() {
 configure_product() {
 	local name product
 	name=$(product_name)
-	product=$(echo "$PRODUCTS" | awk -v name="$name" '$1 == name { print $2, $3 }')
+	product=$(echo "$PRODUCTS" | awk -v name="$name" '$1 == name { print $2, $3, $4 }')
 
 	if [ -z "$product" ]; then
 		if [[ " $DISCONTINUED_PRODUCTS " == *" $name "* ]]; then
@@ -65,7 +69,12 @@ configure_product() {
 	fi
 
 	TOOL_NAME="$name"
-	read -r JETBRAINS_PRODUCT_CODE LAUNCHER <<<"$product"
+	read -r JETBRAINS_PRODUCT_CODE LAUNCHER COMMAND <<<"$product"
+
+	VERSION_PATTERN="^20"
+	if [[ " $ALL_VERSIONS_PRODUCTS " == *" $name "* ]]; then
+		VERSION_PATTERN="."
+	fi
 }
 
 # Download key of the JetBrains releases API.
@@ -85,7 +94,7 @@ is_mac() {
 
 sort_versions() {
 	sed 'h; s/[+-]/./g; s/.p\([[:digit:]]\)/.z\1/; s/$/.z/; G; s/\n/ /' |
-		LC_ALL=C sort -t. -k 1,1 -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
+		LC_ALL=C sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
 }
 
 # Releases with a download for the current platform: "version link checksum_link" per line.
@@ -94,7 +103,7 @@ list_releases() {
 		jq -r --arg code "$JETBRAINS_PRODUCT_CODE" --arg platform "$(platform)" \
 			'.[$code][] | select(.downloads[$platform].link != null) |
 			[.version, .downloads[$platform].link, .downloads[$platform].checksumLink // ""] | join(" ")' |
-		{ grep "^20" || true; }
+		{ grep "$VERSION_PATTERN" || true; }
 }
 
 list_all_versions() {
@@ -105,7 +114,7 @@ list_all_versions() {
 latest_version() {
 	local query="$1"
 	list_all_versions |
-		awk -v query="$query" 'query == "" || $0 == query || index($0, query ".") == 1' |
+		awk -v query="$query" 'query == "" || $0 "" == query "" || index($0, query ".") == 1' |
 		sort_versions | tail -n1
 }
 
@@ -167,15 +176,25 @@ extract_dmg() {
 	[ "$status" -eq 0 ] || fail "Could not copy $app"
 }
 
-# Launcher path relative to the installation directory.
+# Launcher path relative to the installation directory: bin/idea.sh of IDEs,
+# bin/jetbrains-toolbox of Toolbox App 2.6.3 and later, jetbrains-toolbox of earlier ones.
 launcher_path() {
-	local install_path="$1" app
+	local install_path="$1" app candidate
 	if is_mac; then
 		app=$(find "$install_path" -maxdepth 1 -name '*.app' | head -n1)
-		echo "$(basename "$app")/Contents/MacOS/$LAUNCHER"
-	else
-		echo "bin/$LAUNCHER.sh"
+		[ -n "$app" ] || return 1
+		candidate="$(basename "$app")/Contents/MacOS/$LAUNCHER"
+		[ -x "$install_path/$candidate" ] || return 1
+		echo "$candidate"
+		return 0
 	fi
+	for candidate in "bin/$LAUNCHER.sh" "bin/$LAUNCHER" "$LAUNCHER"; do
+		if [ -f "$install_path/$candidate" ] && [ -x "$install_path/$candidate" ]; then
+			echo "$candidate"
+			return 0
+		fi
+	done
+	return 1
 }
 
 install_version() {
@@ -190,8 +209,7 @@ install_version() {
 		mkdir -p "$install_path/$SHIMS_DIR_NAME" &&
 			cp -R "$ASDF_DOWNLOAD_PATH"/. "$install_path" &&
 			launcher=$(launcher_path "$install_path") &&
-			test -x "$install_path/$launcher" &&
-			ln -sf "../$launcher" "$install_path/$SHIMS_DIR_NAME/$TOOL_NAME"
+			ln -sf "../$launcher" "$install_path/$SHIMS_DIR_NAME/$COMMAND"
 	}; then
 		rm -rf "$install_path"
 		fail "An error occurred while installing $TOOL_NAME $version."
