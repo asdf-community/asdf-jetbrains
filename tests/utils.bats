@@ -69,7 +69,7 @@ load_plugin() {
 @test "the registry name jetbrains explains how to add a product" {
 	run bash -c "source '$(plugin_path jetbrains)/lib/utils.bash'"
 	[ "$status" -eq 1 ]
-	[[ "$output" == *"asdf plugin add jetbrains-idea https://github.com/asdf-community/asdf-jetbrains.git"* ]]
+	[[ "$output" == *"asdf plugin add idea https://github.com/asdf-community/asdf-jetbrains.git"* ]]
 	[[ "$output" == *"rustrover"* ]]
 }
 
