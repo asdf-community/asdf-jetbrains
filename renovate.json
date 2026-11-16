@@ -3,5 +3,20 @@
   "extends": [
     "config:recommended",
     ":semanticCommits"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "bats in .tool-versions: the asdf manager does not support it",
+      "managerFilePatterns": [
+        "/(^|/)\\.tool-versions$/"
+      ],
+      "matchStrings": [
+        "(^|\\n)bats (?<currentValue>\\S+)"
+      ],
+      "depNameTemplate": "bats-core/bats-core",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    }
   ]
 }
