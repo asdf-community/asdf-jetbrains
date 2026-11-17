@@ -221,8 +221,9 @@ extract_dmg() {
 	[ "$status" -eq 0 ] || fail "Could not copy $app"
 }
 
-# Launcher path relative to the installation directory: bin/idea.sh of IDEs,
-# bin/jetbrains-toolbox of Toolbox App 2.6.3 and later, jetbrains-toolbox of earlier ones.
+# Launcher path relative to the installation directory: the native bin/idea of IDEs (the IDE asks
+# to use it instead of the script), bin/idea.sh of older IDEs without it, bin/jetbrains-toolbox
+# of Toolbox App 2.6.3 and later, jetbrains-toolbox of earlier ones.
 launcher_path() {
 	local install_path="$1" app candidate
 	if is_mac; then
@@ -233,7 +234,7 @@ launcher_path() {
 		echo "$candidate"
 		return 0
 	fi
-	for candidate in "bin/$LAUNCHER.sh" "bin/$LAUNCHER" "$LAUNCHER"; do
+	for candidate in "bin/$LAUNCHER" "bin/$LAUNCHER.sh" "$LAUNCHER"; do
 		if [ -f "$install_path/$candidate" ] && [ -x "$install_path/$candidate" ]; then
 			echo "$candidate"
 			return 0

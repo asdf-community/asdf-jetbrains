@@ -173,7 +173,14 @@ make_launcher() {
 	chmod +x "$1"
 }
 
-@test "launcher_path finds bin/<launcher>.sh of IDEs" {
+@test "launcher_path prefers the native launcher of IDEs" {
+	load_plugin idea
+	make_launcher "$BATS_TEST_TMPDIR/install/bin/idea"
+	make_launcher "$BATS_TEST_TMPDIR/install/bin/idea.sh"
+	[ "$(launcher_path "$BATS_TEST_TMPDIR/install")" = "bin/idea" ]
+}
+
+@test "launcher_path falls back to bin/<launcher>.sh of older IDEs" {
 	load_plugin idea
 	make_launcher "$BATS_TEST_TMPDIR/install/bin/idea.sh"
 	[ "$(launcher_path "$BATS_TEST_TMPDIR/install")" = "bin/idea.sh" ]

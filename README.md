@@ -118,6 +118,14 @@ Before 1.1.0, `asdf plugin update` and `mise plugins update` made the plugin fai
 Updating to 1.1.0 or later fixes it, installed versions stay.
 If the plugin already fails, run the update once more; do not remove the plugin, removal deletes installed versions.
 
+Since 1.3.2 the command starts the native launcher (`bin/idea`) instead of the script (`bin/idea.sh`),
+which the IDE asks for ("Please consider switching to a native launcher").
+Versions installed before keep the script until reinstalled, or relink the command, e.g. for `idea`:
+
+```shell
+ln -sf ../bin/idea "$(asdf where idea)/shims/idea"
+```
+
 # Contributing
 
 Contributions of any kind welcome! See the [contributing guide](contributing.md).
