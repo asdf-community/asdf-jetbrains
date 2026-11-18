@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/asdf-community/asdf-jetbrains/compare/v1.3.1...v1.3.2) (2026-11-17)
+
+
+### Bug Fixes
+
+* start IDEs with the native launcher instead of the script ([9a38748](https://github.com/asdf-community/asdf-jetbrains/commit/9a387482f8390b076f21791a634fd65800f0d13e))
+
 ## [1.3.1](https://github.com/asdf-community/asdf-jetbrains/compare/v1.3.0...v1.3.1) (2026-11-16)
 
 
