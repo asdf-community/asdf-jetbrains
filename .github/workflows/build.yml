@@ -16,10 +16,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - macos-15-intel
+        # The weekly run skips macOS arm64 (macos-latest): GitHub often has no free runner for it
+        # and cancels the job, while the run is meant to notice changes of the download sites.
+        os: ${{ github.event_name == 'schedule' && fromJSON('["ubuntu-latest", "macos-15-intel"]') || fromJSON('["ubuntu-latest", "macos-latest", "macos-15-intel"]') }}
         # Gateway is the smallest IDE, the others are 1-3 GB.
         product:
           - plugin: gateway
